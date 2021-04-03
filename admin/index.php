@@ -35,6 +35,14 @@
                     </div>
                 </div>
 
+                <?php 
+                
+                    if($database->connection){
+                        echo "DB connection succes!";
+                    }
+
+                ?>
+
                 <!-- /.row -->
 
             </div>
