@@ -1,22 +1,51 @@
 <?php
 
 class User{
+    public $id;
+    public $username;
+    public $first_name;
+    public $last_name;
 
     public static function get_all_users(){
-        global $database;
-
         $sql_query = "SELECT * FROM users;";
-        return $database->query($sql_query);
+        return self::activate_query($sql_query);
     }  
     
     public static function get_user($user_id){
-        global $database;
-
         $sql_query = "SELECT * FROM users WHERE id=$user_id";
-        $result = $database->query($sql_query);
-        $user = $result->fetch_array();
+        $result = self::activate_query($sql_query);
 
-        return $user;
+        return !empty($result) ? $result[0] : "User not found!";
+    }
+
+    private function has_attribute($attribute){
+        if(array_key_exists($attribute, get_object_vars($this))){ return true; }
+        return false;
+    }
+
+    private static function init($row){
+        $obj = new self;
+
+        foreach($row as $attribute => $value){
+            if($obj->has_attribute($attribute)){
+                $obj->$attribute = $value;
+            }
+        }
+
+        return $obj;
+    }
+
+    public static function activate_query($sql_query){
+        global $database;
+        $records = array();
+
+        $result = $database->query($sql_query);
+
+        while($row = $result->fetch_assoc()){
+            $records[] = self::init($row);
+        }
+
+        return $records;
     }
     
 }
