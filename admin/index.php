@@ -41,10 +41,14 @@
                         echo "DB connection succes!";
                     }
 
-                    $sql = "SELECT * FROM users WHERE id=1;";
+                    $all_users = User::get_all_users();
+                    while($row = $all_users->fetch_assoc()){
+                        echo "<br />";
+                        echo $row['username'];
+                    }
 
-                    $user = $database->query($sql);
-                    echo "<h1>" . mysqli_fetch_assoc($user)['username'] . "</h1>";
+                    $user = User::get_user(1);
+                    echo "<br />" . "-------" . "<br />" . $user[1];
 
                 ?>
 
