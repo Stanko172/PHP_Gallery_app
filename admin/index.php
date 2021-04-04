@@ -41,6 +41,11 @@
                         echo "DB connection succes!";
                     }
 
+                    $sql = "SELECT * FROM users WHERE id=1;";
+
+                    $user = $database->query($sql);
+                    echo "<h1>" . mysqli_fetch_assoc($user)['username'] . "</h1>";
+
                 ?>
 
                 <!-- /.row -->

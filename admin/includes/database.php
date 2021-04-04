@@ -9,17 +9,27 @@ class DB{
     }
 
     public function open_db_connection(){
+        $this->connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-        $this->connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
-        if($this->connection){
-            
-            echo "Connection established!";
-
+        if($this->connection->connect_error){
+            die("Database connection failed! - " . $this->connection->connect_error);
         }else{
-            die("Database connection failed!");
+            echo "Connection established!";
+        }
+    }
+
+    public function query($sql_query){
+        $result = $this->connection->query($sql_query);
+
+        if(!$result){
+            die ("Query failed - " . $this->connection->error);
         }
 
+        return $result;
+    }
+
+    public function escaped_string($string){
+        return $this->connection->real_escape_string($string);
     }
 
 }
