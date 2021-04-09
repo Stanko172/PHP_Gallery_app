@@ -1,4 +1,9 @@
 <?php include("includes/header.php"); ?>
+<?php
+
+    if(!$session->is_signed_in()){ header("Location:login.php"); }else{ echo "hahaha"; }
+
+?>
 
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -50,11 +55,6 @@
                     foreach( $users as $user){
                         echo "<br />" . $user->username;
                     }
-
-                    //Verify user check
-                    echo "<br />";
-                    echo User::verify_user("JDoe", "12345678") ? "verified" : "not verified";
-
 
 
                 ?>

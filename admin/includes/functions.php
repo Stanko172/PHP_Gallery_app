@@ -9,7 +9,7 @@
     }
 
     function redirect($location){
-        header("includes/$location");
+        header("Location:$location");
     }
 
 ?>
