@@ -51,6 +51,10 @@
                         echo "<br />" . $user->username;
                     }
 
+                    //Verify user check
+                    echo "<br />";
+                    echo User::verify_user("JDoe", "12345678") ? "verified" : "not verified";
+
 
 
                 ?>

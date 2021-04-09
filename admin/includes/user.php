@@ -5,6 +5,7 @@ class User{
     public $username;
     public $first_name;
     public $last_name;
+    private $password;
 
     public static function get_all_users(){
         $sql_query = "SELECT * FROM users;";
@@ -46,6 +47,19 @@ class User{
         }
 
         return $records;
+    }
+
+    public static function verify_user($username, $password){
+        global $database;
+
+        $username = $database->escaped_string($username);
+        $password = $database->escaped_string($password);
+
+        $sql = "SELECT * FROM users WHERE `username`='{$username}' AND `password`='{$password}'";
+
+        $result = self::activate_query($sql);
+        
+        return !empty($result) ? array_shift($result) : false; 
     }
     
 }
