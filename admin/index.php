@@ -1,9 +1,4 @@
-<?php include("includes/header.php"); ?>
-<?php
-
-    if(!$session->is_signed_in()){ header("Location:login.php"); }else{ echo "hahaha"; }
-
-?>
+<?php include("includes/header.php");?>
 
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -22,7 +17,6 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">

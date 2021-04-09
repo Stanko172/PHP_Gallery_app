@@ -1,4 +1,4 @@
-<?php include("includes/header.php"); ?>
+<?php require_once("includes/init.php"); ?>
 <?php
 
 if($session->is_signed_in()){
@@ -10,14 +10,16 @@ if(isset($_POST['submit'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    //Metoda za provjeru postoji li korisnik u bazi podataka
+    $user_found = User::verify_user($username, $password);
 
-    if(!$user_found){
+    
+    if(empty($user_found)){
         $msg = "Netočni korisnički podaci!";
     }else{
         $session->login($user_found);
-        redirect("index.php");
+        header("Location:index.php");
     }
+    
 }else{
     $msg = "";
     $username = "";
@@ -27,9 +29,12 @@ if(isset($_POST['submit'])){
 
 ?>
 
-
+<?php echo $_SESSION['user_id'];?>
+<?php echo $session->is_signed_in() ? "sfsfsd" : "aaaaa"?>
 <h4 class="bg-danger"><?php echo $msg; ?></h4>
-	
+
+<div class="col-md-4 col-md-offset-3">
+
 <form id="login-id" action="" method="post">
 	
 <div class="form-group">
@@ -52,6 +57,8 @@ if(isset($_POST['submit'])){
 
 
 </form>
+
+</div>
 
 
 </div>

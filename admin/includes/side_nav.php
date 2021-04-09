@@ -12,5 +12,8 @@
                     <li>
                         <a href="comments.php"><i class="fa fa-fw fa-edit"></i> Comments</a>
                     </li>
+                    <li>
+                        <a href="../admin/logout.php"><i class="fa fa-fw fa-edit"></i> Log out</a>
+                    </li>
                 </ul>
             </div>
