@@ -29,8 +29,6 @@ if(isset($_POST['submit'])){
 
 ?>
 
-<?php echo $_SESSION['user_id'];?>
-<?php echo $session->is_signed_in() ? "sfsfsd" : "aaaaa"?>
 <h4 class="bg-danger"><?php echo $msg; ?></h4>
 
 <div class="col-md-4 col-md-offset-3">
