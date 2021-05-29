@@ -5,7 +5,7 @@ class User{
     public $username;
     public $first_name;
     public $last_name;
-    private $password;
+    public $password;
 
     public static function get_all_users(){
         $sql_query = "SELECT * FROM users;";
@@ -60,6 +60,24 @@ class User{
         $result = self::activate_query($sql);
         
         return !empty($result) ? array_shift($result) : false; 
+    }
+
+    public function create(){
+        global $database;
+
+        $sql = "INSERT INTO users (`username`, `password`, `first_name`, `last_name`) VALUES ('";
+        $sql .= $database->escaped_string($this->username) . "', '";
+        $sql .= $database->escaped_string($this->password) . "', '";
+        $sql .= $database->escaped_string($this->first_name) . "', '";
+        $sql .= $database->escaped_string($this->last_name) . "'";
+        $sql .= ");";
+
+        if(!$database->query($sql)){
+            return false;
+        }else{
+            $this->id = mysqli_insert_id($database->connection);
+            return true;
+        }
     }
     
 }
