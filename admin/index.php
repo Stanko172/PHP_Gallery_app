@@ -51,13 +51,15 @@
                     }
 
                     //Testiranje ubacivanja korisnika u bazu podataka
-                    /*$user = new User();
-                    $user->username = "Mirko123";
+                    /*
+                    $user = new User();
+                    $user->username = "Mirko1234";
                     $user->password = "12345678";
                     $user->first_name = "Mirko";
                     $user->last_name = "Ptica";
 
-                    $user->create();*/
+                    $user->create();
+                    */
 
                     /*
                     $user = User::get_user(3);
@@ -66,16 +68,12 @@
                     $user->update();
                     */
 
+                    /*
                     $user = new User();
                     $user = $user->get_user(4);
                     print_r($user);
                     print_r($user->delete());
-
-
-
-
-                    
-
+                    */
 
 
                 ?>

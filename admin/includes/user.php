@@ -1,6 +1,8 @@
 <?php
 
 class User{
+    protected static $db_table = 'users';
+    protected static $db_table_attr = array('username', 'password', 'first_name', 'last_name');
     public $id;
     public $username;
     public $first_name;
@@ -55,22 +57,35 @@ class User{
         $username = $database->escaped_string($username);
         $password = $database->escaped_string($password);
 
-        $sql = "SELECT * FROM users WHERE `username`='{$username}' AND `password`='{$password}'";
+        $sql = "SELECT * FROM " . self::$db_table . " WHERE `username`='{$username}' AND `password`='{$password}'";
 
         $result = self::activate_query($sql);
         
         return !empty($result) ? array_shift($result) : false; 
     }
 
+    public function properties(){
+        $properties = array();
+
+        foreach(self::$db_table_attr as $attr){
+            if(property_exists('User', $attr)){
+                $properties[$attr] = $this->$attr;
+            }
+        }
+
+        return $properties;
+    }
+
+    public function save(){
+        isset($this->id) ? $this->update() : $this->create();
+    }
+
     public function create(){
         global $database;
 
-        $sql = "INSERT INTO users (`username`, `password`, `first_name`, `last_name`) VALUES ('";
-        $sql .= $database->escaped_string($this->username) . "', '";
-        $sql .= $database->escaped_string($this->password) . "', '";
-        $sql .= $database->escaped_string($this->first_name) . "', '";
-        $sql .= $database->escaped_string($this->last_name) . "'";
-        $sql .= ");";
+        $sql = "INSERT INTO " . self::$db_table . " (" . implode(',', array_keys($this->properties())) . ")VALUES ('";
+        $sql .= implode("','", array_values($this->properties()));
+        $sql .= "');";
 
         if(!$database->query($sql)){
             return false;
@@ -83,7 +98,7 @@ class User{
     public function update(){
         global $database;
 
-        $sql = "UPDATE users SET ";
+        $sql = "UPDATE " . self::$db_table . " SET ";
         $sql .= "username='" . $database->escaped_string($this->username) . "', ";
         $sql .= "first_name='" . $database->escaped_string($this->first_name) . "', ";
         $sql .= "last_name='" . $database->escaped_string($this->last_name) . "', ";
@@ -98,7 +113,7 @@ class User{
     public function delete(){
         global $database;
 
-        $sql = "DELETE FROM users";
+        $sql = "DELETE FROM " . self::$db_table . " ";
         $sql .= " WHERE id=" . $database->escaped_string($this->id);
 
         $database->query($sql);
