@@ -89,10 +89,21 @@ class User{
         $sql .= "last_name='" . $database->escaped_string($this->last_name) . "', ";
         $sql .= "password='" . $database->escaped_string($this->password ). "' ";
         $sql .= "WHERE id=" .$database->escaped_string($this->id);
-        echo $sql;
+        
         $database->query($sql);
 
         return mysqli_affected_rows($database->connection) ? true : false;
+    }
+
+    public function delete(){
+        global $database;
+
+        $sql = "DELETE FROM users";
+        $sql .= " WHERE id=" . $database->escaped_string($this->id);
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
     }
     
 }

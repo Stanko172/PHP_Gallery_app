@@ -59,10 +59,21 @@
 
                     $user->create();*/
 
+                    /*
                     $user = User::get_user(3);
                     $user->username = 'JaneDoe123';
 
                     $user->update();
+                    */
+
+                    $user = new User();
+                    $user = $user->get_user(4);
+                    print_r($user);
+                    print_r($user->delete());
+
+
+
+
                     
 
 
