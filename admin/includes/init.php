@@ -1,5 +1,9 @@
 <?php
 
+defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+defined('ROOT_DIR') ? null : define('ROOT_DIR', dirname(dirname(__FILE__)));
+defined('INCLUDES_PATH') ? null : define('INCLUDES_PATH', ROOT_DIR . 'admin' . DS . 'includes');
+
 require_once("functions.php");
 require_once("new_config.php");
 require_once("database.php");

@@ -1,5 +1,21 @@
 <?php include("includes/header.php"); ?>
 
+<?php
+    $msg = ""; 
+    if(isset($_POST['submit'])){
+        $photo = new Photo();
+        $photo->title = $_POST['title'];
+        if($photo->set_file($_FILES['file_upload'])){
+            if($photo->save()){
+                $msg = "Slika uspješno učitana.";
+            }else{
+                $msg = join("<br />", $photo->errors);
+            }
+        }
+    }
+
+?>
+
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             
@@ -21,17 +37,22 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Upload
-                            <small>Subheading</small>
+                            Upload  
                         </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-file"></i> Blank Page
-                            </li>
-                        </ol>
+                        <div class="col-md-6 justify-center">
+                            <?php echo $msg;?>
+                            <form action="upload.php" method="POST" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="text" name="title" class="form-control"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="file" name="file_upload">
+                                </div>
+
+                                <input type="submit" name="submit"/>
+                            </form>
+                        </div>
                     </div>
                 </div>
 

@@ -82,8 +82,6 @@ class Db_object{
         $sql .= implode("','", array_values($this->properties()));
         $sql .= "');";
 
-        echo $sql;
-
         if(!$database->query($sql)){
             return false;
         }else{
