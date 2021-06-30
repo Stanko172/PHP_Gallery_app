@@ -33,6 +33,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                <th scope="col">Slika</th>
                                 <th scope="col">ID</th>
                                 <th scope="col">Naziv</th>
                                 <th scope="col">Tip</th>
@@ -42,6 +43,7 @@
                             <tbody>
                             <?php  foreach($photos as $photo) : ?>
                                 <tr>
+                                <td><img src=<?php echo $photo->image_path() ?> width = "125px" height = "125px" /></td>
                                 <td><?php echo $photo->id; ?></td>
                                 <td><?php echo $photo->title; ?></td>
                                 <td><?php echo $photo->type; ?></td>

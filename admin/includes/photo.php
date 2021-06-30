@@ -24,6 +24,10 @@ class Photo extends Db_object{
         8 => 'A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop'
     );
 
+    public function image_path(){
+        return $this->upload_dir . DS . $this->filename;
+    }
+
 
     public function set_file($file){
         if(empty($file) || !is_array($file)){
