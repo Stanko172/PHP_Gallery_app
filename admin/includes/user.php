@@ -1,6 +1,6 @@
 <?php
 
-class User{
+class User extends Db_object{
     protected static $db_table = 'users';
     protected static $db_table_attr = array('username', 'password', 'first_name', 'last_name');
     public $id;
@@ -8,48 +8,6 @@ class User{
     public $first_name;
     public $last_name;
     public $password;
-
-    public static function get_all_users(){
-        $sql_query = "SELECT * FROM users;";
-        return self::activate_query($sql_query);
-    }  
-    
-    public static function get_user($user_id){
-        $sql_query = "SELECT * FROM users WHERE id=$user_id";
-        $result = self::activate_query($sql_query);
-
-        return !empty($result) ? $result[0] : "User not found!";
-    }
-
-    private function has_attribute($attribute){
-        if(array_key_exists($attribute, get_object_vars($this))){ return true; }
-        return false;
-    }
-
-    private static function init($row){
-        $obj = new self;
-
-        foreach($row as $attribute => $value){
-            if($obj->has_attribute($attribute)){
-                $obj->$attribute = $value;
-            }
-        }
-
-        return $obj;
-    }
-
-    public static function activate_query($sql_query){
-        global $database;
-        $records = array();
-
-        $result = $database->query($sql_query);
-
-        while($row = $result->fetch_assoc()){
-            $records[] = self::init($row);
-        }
-
-        return $records;
-    }
 
     public static function verify_user($username, $password){
         global $database;

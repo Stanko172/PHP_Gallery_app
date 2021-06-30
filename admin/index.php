@@ -40,12 +40,12 @@
                         echo "DB connection succes!";
                     }
 
-                    $result = User::get_user(1);
+                    $result = User::get_by_id(1);
                     echo "<br />" . $result->username;
 
                     echo "<br /> -------";
 
-                    $users = User::get_all_users("SELECT * FROM users;");
+                    $users = User::get_all("SELECT * FROM users;");
                     foreach( $users as $user){
                         echo "<br />" . $user->username;
                     }
