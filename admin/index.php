@@ -79,6 +79,37 @@
                     print_r($user->delete());
                     */
 
+                    /*
+                    $new_photo = new Photo();
+                    $new_photo->title = "Summer photo";
+                    $new_photo->description = "Summer photo from Croatia.";
+                    $new_photo->filename = "summer.png";
+                    $new_photo->type = "image";
+                    $new_photo->size = 11;
+
+                    $new_photo->create();
+
+                    $new_photo->title = "Summer photo CROATIA!";
+
+                    $new_photo->update();
+
+                    $new_photo = new Photo();
+                    $new_photo->title = "Potatos";
+                    $new_photo->description = "Summer photo from Croatia.";
+                    $new_photo->filename = "summer.png";
+                    $new_photo->type = "image";
+                    $new_photo->size = 11;
+
+                    $new_photo->create();
+                    $new_photo->delete();
+
+                    echo "<br /><br /> Slike: <br/>";
+                    $photos = Photo::get_all();
+                    foreach($photos as $photo){
+                        echo $photo->title . "<br />";
+                    }
+                    */
+
 
                 ?>
 

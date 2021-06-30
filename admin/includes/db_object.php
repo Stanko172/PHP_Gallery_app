@@ -51,7 +51,7 @@ class Db_object{
         $properties = array();
 
         foreach(static::$db_table_attr as $attr){
-            if(property_exists('User', $attr)){
+            if(property_exists(get_called_class(), $attr)){
                 $properties[$attr] = $this->$attr;
             }
         }
@@ -81,6 +81,8 @@ class Db_object{
         $sql = "INSERT INTO " . static::$db_table . " (" . implode(',', array_keys($this->clean_properties())) . ")VALUES ('";
         $sql .= implode("','", array_values($this->properties()));
         $sql .= "');";
+
+        echo $sql;
 
         if(!$database->query($sql)){
             return false;
