@@ -2,6 +2,7 @@
 
 class Db_object{
     protected static $db_table = "";
+    protected static $db_table_attr = array();
 
     public static function get_all(){
         $sql_query = "SELECT * FROM " . static::$db_table . ";";
@@ -44,6 +45,78 @@ class Db_object{
         }
 
         return $records;
+    }
+
+    public function properties(){
+        $properties = array();
+
+        foreach(static::$db_table_attr as $attr){
+            if(property_exists('User', $attr)){
+                $properties[$attr] = $this->$attr;
+            }
+        }
+
+        return $properties;
+    }
+
+    public function clean_properties(){
+        global $database;
+
+        $clean_properties = array();
+
+        foreach($this->properties() as $key => $value){
+            $clean_properties[$key] = $database->escaped_string($value);
+        }
+
+        return $clean_properties;
+    }
+
+    public function save(){
+        isset($this->id) ? $this->update() : $this->create();
+    }
+
+    public function create(){
+        global $database;
+
+        $sql = "INSERT INTO " . static::$db_table . " (" . implode(',', array_keys($this->clean_properties())) . ")VALUES ('";
+        $sql .= implode("','", array_values($this->properties()));
+        $sql .= "');";
+
+        if(!$database->query($sql)){
+            return false;
+        }else{
+            $this->id = mysqli_insert_id($database->connection);
+            return true;
+        }
+    }
+
+    public function update(){
+        global $database;
+
+        $propety_pairs = array();
+
+        foreach($this->clean_properties() as $key => $value){
+            $propety_pairs[] = "$key='$value'";
+        }
+
+        $sql = "UPDATE " . static::$db_table . " SET ";
+        $sql .= implode(", ", array_values($propety_pairs));
+        $sql .= "WHERE id=" .$database->escaped_string($this->id);
+        
+        $database->query($sql);
+
+        return mysqli_affected_rows($database->connection) ? true : false;
+    }
+
+    public function delete(){
+        global $database;
+
+        $sql = "DELETE FROM " . static::$db_table . " ";
+        $sql .= " WHERE id=" . $database->escaped_string($this->id);
+
+        $database->query($sql);
+
+        return (mysqli_affected_rows($database->connection) == 1) ? true : false;
     }
 }
 
