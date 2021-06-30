@@ -35,7 +35,8 @@
                 </div>
 
                 <?php 
-                
+
+                    ////////////
                     if($database->connection){
                         echo "DB connection succes!";
                     }
