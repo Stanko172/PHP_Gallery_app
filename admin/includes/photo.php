@@ -77,6 +77,15 @@ class Photo extends Db_object{
 
     }
 
+    public function delete_photo(){
+        if($this->delete()){
+            $target_path = ROOT_DIR . DS . $this->upload_dir . DS . $this->filename;
+            unlink("$target_path") ? true : false;
+        }else{
+            return false;
+        }
+    }
+
 }
 
 
