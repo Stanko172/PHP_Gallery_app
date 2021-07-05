@@ -47,7 +47,7 @@
                                 
                                     <div class="action_links">
                                         <a href="delete_photo.php?id=<?php echo $photo->id;?>">Delete</a>
-                                        <a href="delete_photo.php">Edit</a>
+                                        <a href="edit_photo.php?id=<?php echo $photo->id;?>">Edit</a>
                                         <a href="delete_photo.php">View</a>
                                     </div>
                                 
