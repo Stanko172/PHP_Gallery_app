@@ -49,6 +49,10 @@
                                 <input type="text" name="title" class="form-control" value="<?php echo $photo->title;?>"/>
                             </div>
 
+                                <img src="<?php echo $photo->upload_dir . DS . $photo->filename; ?>" width="150" height="150"/>
+
+                            <br><br>
+
                             <div class="form-group">
                                 <label for="caption">Caption</label>
                                 <input type="text" name="caption" id="caption" class="form-control" value="<?php echo $photo->caption;?>"/>
@@ -61,8 +65,8 @@
                             </div>
 
                             <div class="form-group">
-                            <label for="description">Description</label>
-                                <textarea rows=10 cols=20 name="description" id="description" class="form-control"><?php echo $photo->description;?></textarea>
+                            <label for="summernote">Description</label>
+                                <textarea id="summernote" name="description" ><?php echo $photo->description;?></textarea>
                             </div>
                     </div>
                     <div class="col-md-4" >
@@ -113,3 +117,9 @@
         <!-- /#page-wrapper -->
 
   <?php include("includes/footer.php"); ?>
+
+  <script>
+    $(document).ready(function() {
+        $('#summernote').summernote({height: 250});
+    });
+  </script>
