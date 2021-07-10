@@ -1,5 +1,11 @@
 <?php include("includes/header.php"); ?>
 
+<?php
+    
+    $users = user::get_all();
+
+?>
+
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             
@@ -21,17 +27,42 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Users
-                            <small>Subheading</small>
+                            users  
                         </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-file"></i> Blank Page
-                            </li>
-                        </ol>
+                        <div>
+                        <a type="button" href="add_user.php" class="btn btn-primary btn-md">Add user</a>    
+                        <br />
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">Slika</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Naziv</th>
+                                <th scope="col">Tip</th>
+                                <th scope="col">Veličina</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php  foreach($users as $user) : ?>
+                                <tr>
+                                <td><img src=<?php echo $user->image_path() ?> width = "125px" height = "125px" />
+                                
+                                    <div class="action_links">
+                                        <a href="delete_user.php?id=<?php echo $user->id;?>">Delete</a>
+                                        <a href="edit_user.php?id=<?php echo $user->id;?>">Edit</a>
+                                        <a href="delete_user.php">View</a>
+                                    </div>
+                                
+                                </td>
+                                <td><?php echo $user->id; ?></td>
+                                <td><?php echo $user->username; ?></td>
+                                <td><?php echo $user->first_name; ?></td>
+                                <td><?php echo $user->last_name; ?></td>
+                                </tr>
+                            </tbody>
+                            <? endforeach ?>
+                        </table>
+                        </div>
                     </div>
                 </div>
 
