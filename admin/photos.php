@@ -38,6 +38,7 @@
                                 <th scope="col">Naziv</th>
                                 <th scope="col">Tip</th>
                                 <th scope="col">Veličina</th>
+                                <th scope="col">Broj komentara</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,7 +49,7 @@
                                     <div class="action_links">
                                         <a href="delete_photo.php?id=<?php echo $photo->id;?>">Delete</a>
                                         <a href="edit_photo.php?id=<?php echo $photo->id;?>">Edit</a>
-                                        <a href="delete_photo.php">View</a>
+                                        <a href="../photo.php?id=<?php echo $photo->id; ?>">View</a>
                                     </div>
                                 
                                 </td>
@@ -56,6 +57,7 @@
                                 <td><?php echo $photo->title; ?></td>
                                 <td><?php echo $photo->type; ?></td>
                                 <td><?php echo $photo->size; ?></td>
+                                <td><?php echo count(Comment::get_all_comments_for_image($photo->id)); ?></td>
                                 </tr>
                             </tbody>
                             <? endforeach ?>
