@@ -28,6 +28,30 @@
 
 <body>
 
+<?php
+
+require_once('admin/includes/init.php');
+
+$msg = "";
+if(isset($_POST['create']) && $session->is_signed_in()){
+    $author = User::get_by_id($session->user_id);
+    $comment = Comment::create_comment($_GET['id'], $author->username, $_POST['body']);
+
+    if($comment->create()){
+        $msg = "Komentar uspješno dodan!";
+    }else{
+        $msg = "Dogodila se greška prilikom dodavanja komentara!";
+    }
+}else{
+    $msg = "Provjerite jeste li prijavljeni!";
+}
+
+if(isset($_GET['id'])){
+    $comments = Comment::get_all_comments_for_image($_GET['id']);
+}
+
+?>
+
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -100,15 +124,16 @@
                 <hr>
 
                 <!-- Blog Comments -->
-
+                
+                <?php echo "<h4>$msg</h4>"; ?>
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>Leave a Comment:</h4>
-                    <form role="form">
+                    <form role="form" action="photo.php?id=<?php echo $_GET['id']; ?>" method="POST">
                         <div class="form-group">
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea class="form-control" name="body" rows="3"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" name="create" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
 
@@ -117,18 +142,20 @@
                 <!-- Posted Comments -->
 
                 <!-- Comment -->
+                <?php foreach($comments as $comment) : ?>
                 <div class="media">
                     <a class="pull-left" href="#">
                         <img class="media-object" src="http://placehold.it/64x64" alt="">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
+                        <h4 class="media-heading"><?php echo $comment->author; ?>
                             <small>August 25, 2014 at 9:30 PM</small>
                         </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                       <?php echo $comment->body; ?>
                     </div>
                 </div>
-
+                <?php endforeach; ?>
+                
                 <!-- Comment -->
                 <div class="media">
                     <a class="pull-left" href="#">
