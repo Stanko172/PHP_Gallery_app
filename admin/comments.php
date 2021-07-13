@@ -1,5 +1,11 @@
 <?php include("includes/header.php"); ?>
 
+<?php
+
+    $comments = Comment::get_all();
+
+?>
+
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             
@@ -32,6 +38,28 @@
                                 <i class="fa fa-file"></i> Blank Page
                             </li>
                         </ol>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Photo_ID</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Body</th>
+                                <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php  foreach($comments as $comment) : ?>
+                                <tr>
+                                <td><?php echo $comment->id; ?></td>
+                                <td><?php echo $comment->photo_id; ?></td>
+                                <td><?php echo $comment->author; ?></td>
+                                <td><?php echo $comment->body; ?></td>
+                                <td><a href="delete_comment.php?id=<?php echo $comment->id; ?>">Delete</a></td>
+                                </tr>
+                            </tbody>
+                            <? endforeach ?>
+                        </table>
                     </div>
                 </div>
 
