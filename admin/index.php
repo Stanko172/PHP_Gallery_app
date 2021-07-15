@@ -28,8 +28,7 @@ if(!$session->is_signed_in()){
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Blank Page
-                            <small>Subheading</small>
+                            Dashboard
                         </h1>
                         <ol class="breadcrumb">
                             <li>
@@ -41,88 +40,108 @@ if(!$session->is_signed_in()){
                         </ol>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-users fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><?php echo $session->count; ?></div>
+                                        <div>New Views</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Pages views from Gallery</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
 
-                <?php 
-
-                    ////////////
-                    if($database->connection){
-                        echo "DB connection succes!";
-                    }
-
-                    $result = User::get_by_id(1);
-                    echo "<br />" . $result->username;
-
-                    echo "<br /> -------";
-
-                    $users = User::get_all("SELECT * FROM users;");
-                    foreach( $users as $user){
-                        echo "<br />" . $user->username;
-                    }
-
-                    //Testiranje ubacivanja korisnika u bazu podataka
-                    
-                    /*
-                    $user = new User();
-                    $user->username = "Mate123";
-                    $user->password = "12345678";
-                    $user->first_name = "Mate";
-                    $user->last_name = "Matic";
-
-                    $user->create();
-                    */
-                    
-
-                    /*
-                    $user = User::get_user(3);
-                    $user->username = 'JaneDoe123';
-
-                    $user->update();
-                    */
-                    
-                    
-
-                    /*
-                    $user = new User();
-                    $user = $user->get_user(4);
-                    print_r($user);
-                    print_r($user->delete());
-                    */
-
-                    /*
-                    $new_photo = new Photo();
-                    $new_photo->title = "Summer photo";
-                    $new_photo->description = "Summer photo from Croatia.";
-                    $new_photo->filename = "summer.png";
-                    $new_photo->type = "image";
-                    $new_photo->size = 11;
-
-                    $new_photo->create();
-
-                    $new_photo->title = "Summer photo CROATIA!";
-
-                    $new_photo->update();
-
-                    $new_photo = new Photo();
-                    $new_photo->title = "Potatos";
-                    $new_photo->description = "Summer photo from Croatia.";
-                    $new_photo->filename = "summer.png";
-                    $new_photo->type = "image";
-                    $new_photo->size = 11;
-
-                    $new_photo->create();
-                    $new_photo->delete();
-
-                    echo "<br /><br /> Slike: <br/>";
-                    $photos = Photo::get_all();
-                    foreach($photos as $photo){
-                        echo $photo->title . "<br />";
-                    }
-                    */
+                     <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-photo fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><?php echo Photo::count_all(); ?></div>
+                                        <div>Photos</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Total Photos in Gallery</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
 
 
-                ?>
+                     <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-user fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><?php echo User::count_all(); ?>
 
+                                        </div>
+
+                                        <div>Users</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Total Users</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                      <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-support fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><?php echo Comment::count_all(); ?></div>
+                                        <div>Comments</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer">
+                                    <span class="pull-left">Total Comments</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                        </div> <!--First Row-->
                 <!-- /.row -->
+                <div id="piechart" style="width: 900px; height: 500px;"></div>
+
 
             </div>
             <!-- /.container-fluid -->
