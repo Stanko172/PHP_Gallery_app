@@ -17,7 +17,7 @@ if(isset($_POST['create']) && $session->is_signed_in()){
         $msg = "Dogodila se greška prilikom dodavanja komentara!";
     }
 }else{
-    $msg = "Provjerite jeste li prijavljeni!";
+    $msg = "";
 }
 
 if(isset($_GET['id'])){
@@ -55,7 +55,7 @@ if(isset($_GET['id'])){
                 <hr>
 
                 <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 24, 2013 at 9:00 PM</p>
+                <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $photo->date_and_time; ?></p>
 
                 <hr>
 

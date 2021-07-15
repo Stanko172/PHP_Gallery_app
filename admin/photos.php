@@ -34,7 +34,7 @@
                             <thead>
                                 <tr>
                                 <th scope="col">Slika</th>
-                                <th scope="col">ID</th>
+                                <th scope="col">Author</th>
                                 <th scope="col">Naziv</th>
                                 <th scope="col">Tip</th>
                                 <th scope="col">Veličina</th>
@@ -53,7 +53,7 @@
                                     </div>
                                 
                                 </td>
-                                <td><?php echo $photo->id; ?></td>
+                                <td><?php echo $photo->author; ?></td>
                                 <td><?php echo $photo->title; ?></td>
                                 <td><?php echo $photo->type; ?></td>
                                 <td><?php echo $photo->size; ?></td>
