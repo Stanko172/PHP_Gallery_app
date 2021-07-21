@@ -9,5 +9,6 @@ require_once("admin/includes/photo.php");
 require_once("admin/includes/session.php");
 require_once("admin/includes/user.php");
 require_once("admin/includes/comment.php");
+require_once("admin/includes/paginate.php");
 
 ?>

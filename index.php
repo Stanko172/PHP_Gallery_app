@@ -2,7 +2,18 @@
 
 <?php  
 
-    $photos = Photo::get_all();
+    $page = !empty($_GET['page']) ? $_GET['page'] : 1;
+    $items_per_page = 4;
+    $total_items_count = Photo::count_all();
+
+    $paginate = new Paginate($page, $items_per_page, $total_items_count);
+
+    $sql = "SELECT * FROM `photos` ";
+    $sql .= "LIMIT {$paginate->items_per_page} ";
+    $sql .= "OFFSET {$paginate->offset()}";
+
+    $photos = Photo::activate_query($sql);
+    //$photos = Photo::get_all();
 
 ?>
 
@@ -26,11 +37,36 @@
             </div>
 
             <?php endforeach; ?>
+            
+            </div>
+            
+            <div class="row">
+                <ul class="pager">
+                    <?php
+                        if($paginate->has_next()){
+
+                            echo "<li class='next'><a href='index.php?page=" . $paginate->next() . "'>Next</a></li>";
+
+                        }
+
+                        for($i = 1; $i <= $paginate->total_page(); $i++){
+                            if($i == $paginate->page){
+                                echo "<li class='active'><a href='index.php?page={$i}'>{$i}</a></li>";
+                            }else{
+                                echo "<li ><a href='index.php?page={$i}'>{$i}</a></li>";
+                            }
+                        }
 
 
+                        if($paginate->has_previous()){
 
-
-        </div>
+                            echo "<li class='previous'><a href='index.php?page=" . $paginate->previous() . "'>Previous</a></li>";
+                        
+                        }
+                    ?>
+                    
+                </ul>
+            </div>
         <!-- /.row -->
 
         <?php include("includes/footer.php"); ?>
@@ -40,5 +76,15 @@
         margin: 0 auto; /* Added */
         float: none; /* Added */
         margin-bottom: 10px; /* Added */
+}
+
+.pager .active a{
+    background-color: black;
+    color: white;
+}
+
+.pager .active a:hover{
+    background-color: grey;
+    color: white;
 }
 </style>
